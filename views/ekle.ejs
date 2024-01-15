@@ -1,0 +1,55 @@
+<!-- add.ejs -->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <%- include('./partials/head.ejs') %>
+
+</head>
+
+<body>
+
+    <header>
+        <a href="/"><h1>Lezita Mamacita</h1></a>
+        <p>Add Yiyecek</p>
+    </header>
+
+    <section id="add-form">
+        <form id="addForm" action="/add" method="POST">
+            <!-- Form fields for adding a new object -->
+            <label for="ad">Ad:</label>
+            <input type="text" id="ad" name="ad" value="" required>
+
+            <label for="img">Image URL:</label>
+            <input type="text" id="img" name="img" value="" required>
+
+            <label for="fiyat">Fiyat:</label>
+            <input type="text" id="fiyat" name="fiyat" value="" required>
+
+            <label for="tur">Tur:</label>
+            <input type="text" id="tur" name="tur" value="" required>
+
+            <!-- Add more fields as needed -->
+
+            <button type="button" onclick="submitForm()">Add Yiyecek</button>
+        </form>
+    </section>
+
+    <%- include("./partials/footer.ejs") %>
+
+    <script>
+        function submitForm() {
+            // Prevent the default form submission behavior
+            event.preventDefault();
+
+            // Submit the form
+            document.getElementById("addForm").submit();
+
+            // Redirect to localhost:3000/admin after the form is submitted
+            window.location.href = 'http://localhost:3000/add';
+        }
+    </script>
+
+</body>
+
+</html>

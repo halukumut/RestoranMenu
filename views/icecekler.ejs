@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <%- include('./partials/head.ejs') %>
+</head>
+<body>
+
+    <header>
+        <a href="/"><h1>Lezita Mamacita</h1></a>
+        <p>İcecekler</p>
+    </header> 
+    
+    <section id="menu">
+        <%if(drinks.length>0) {%>
+          <%drinks.forEach((drink)=>{ %>
+            <div class="menu-item">
+                <h1 id="ad"><%=drink.ad%></h1>
+                <img src="<%=drink.img%>" alt="drink">
+                <h2><%=drink.fiyat%></h2>
+            </div>
+          <%})%>
+          <%}else{%>
+            <%console.log("hata")%>
+          <%}%>
+        
+    </section>
+    
+</body>
+<%- include("./partials/footer.ejs") %>
+</html>

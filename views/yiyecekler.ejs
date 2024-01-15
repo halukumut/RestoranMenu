@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <%- include('./partials/head.ejs') %>
+</head>
+<body>
+
+    <header>
+        <a href="/"><h1>Lezita Mamacita</h1></a>
+        <p>Yiyecekler</p>
+    </header> 
+    
+    <section id="menu">
+        <%if(edibles.length>0) {%>
+          <%edibles.forEach((edible)=>{ %>
+            <div class="menu-item">
+                <h1 id="ad"><%=edible.ad%></h1>
+                <img src="<%=edible.img%>" alt="edible">
+                <h2><%=edible.fiyat%></h2>
+            </div>
+          <%})%>
+          <%}else{%>
+            <%console.log("hata")%>
+          <%}%>
+        
+    </section>
+</body>
+<%- include("./partials/footer.ejs") %>
+</html>

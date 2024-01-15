@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <%- include('./partials/head.ejs') %>
+</head>
+<body class="login">
+
+  <form id="loginForm">
+    <label for="username">Kullanıcı Adı:</label>
+    <input type="text" id="username" name="username" required>
+
+    <label for="password">Şifre:</label>
+    <input type="password" id="password" name="password" required>
+
+    <button type="button" onclick="login()">Giriş Yap</button>
+  </form>
+
+  <script>
+        var loginId;
+        var logPassword;
+        function login() {
+            var username = document.getElementById('username').value;
+            var password = document.getElementById('password').value;
+
+            // Kullanıcı adı ve şifreyi kontrol et (örnek olarak 'admin' ve 'password')
+            if (username == loginId && password == logPassword) {
+                alert('Giriş başarılı!')
+                window.location.replace(window.location.protocol + "//" + window.location.host +'/admin');
+                console.log('basarili');
+                // Burada normalde bir sayfaya yönlendirme yapabilirsiniz.
+            } else {
+                alert('Kullanıcı adı veya şifre yanlış!');
+            }
+        }
+        //Bu kısımda API kullanarak databaseden bilgi çekilecek
+
+        async function fetchProductDetails(productId) {
+          try {
+            const response = await fetch(`http://localhost:3000/api/logs/${productId}`);
+            const data = await response.json();
+
+            loginId = data.logId;
+            logPassword = data.password;
+
+          } catch (error) {
+            console.error('Error fetching data:', error);
+          }
+        }
+
+        
+    
+       
+        window.onload = () => {
+          const productId = '6550f67d6eae475cbca64f89'; // Buraya ürününüzün ID'sini ekleyin
+          fetchProductDetails(productId);
+        };
+
+  </script>
+
+</body>
+</html>

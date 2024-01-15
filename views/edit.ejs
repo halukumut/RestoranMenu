@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <%- include('./partials/head.ejs') %>
+    <link rel="stylesheet" href="/styles/style.css">
+</head>
+
+<body>
+
+    <header>
+        <a href="/"><h1>Lezita Mamacita</h1></a>
+        <p>EDIT</p>
+    </header>
+
+    <section id="edit-form">
+        <form action="/update/<%= urun.id %>" method="POST">
+            <!-- Assuming these are the features of the urun object -->
+            <label for="ad">Ad:</label>
+            <input type="text" id="ad" name="ad" value="<%= urun.ad %>" required>
+
+            <label for="img">Image URL:</label>
+            <input type="text" id="img" name="img" value="<%= urun.img%>" required>
+
+            <label for="fiyat">Fiyat:</label>
+            <input type="text" id="fiyat" name="fiyat" value="<%= urun.fiyat%>" required>
+
+            <label for="tur">Tur:</label>
+            <input type="text" id="tur" name="tur" value="<%= urun.tur%>" required>
+
+            <!-- Add more fields as needed -->
+
+            <button type="submit" onclick="submitFormAndRedirect()">Save Changes</button>
+            <button id="deleteButton" type="button" onclick="deleteItem()">Delete</button>
+        </form>
+    </section>
+
+    <section id="menu">
+        <div class="menu-item">
+            <h1 id="ad"><%= urun.ad %></h1>
+
+            <!-- Conditionally add '../' to the src attribute on the edit page -->
+            <img src="<%= isEditPage ? '../' : '' %><%= urun.img %>" alt="urun">
+
+            <h2><%= urun.fiyat %></h2>
+        </div>
+    </section>
+
+    <%- include("./partials/footer.ejs") %>
+
+    <script>
+        function submitFormAndRedirect(event) {
+            // Prevent the default form submission behavior
+            event.preventDefault();
+    
+            // Submit the form
+            document.getElementById("updateForm").submit();
+            window.location.href = 'http://localhost:3000/admin';
+        }
+        function deleteItem(){
+        const urlParts = window.location.href.split('/');
+        const id = urlParts[urlParts.length - 1];
+        
+            window.location.href='http://localhost:3000/delete/'+id;
+        }
+    </script>
+
+</body>
+
+</html>

@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <%- include('./partials/head.ejs') %>
+</head>
+<body>
+
+    <header>
+        <a href="/"><h1>Lezita Mamacita</h1></a>
+        <p>ADMIN</p>
+        <a href="/menu"><button id="logout-btn">Log Out</button></a>
+    </header> 
+    
+    <section id="menu">
+        <%if(uruns.length>0) {%>
+          <%uruns.forEach((urun)=>{ %>
+            <div class="menu-item">
+                <h1 id="ad"><%=urun.ad%></h1>
+                <img src="<%=urun.img%>" alt="urun">
+                <h2><%=urun.fiyat%></h2>
+                <button onclick="edit('<%= JSON.stringify(urun) %>')">EDIT</button>
+            </div>
+          <%})%>
+          <%}else{%>
+            <%console.log("hata")%>
+          <%}%>
+        
+    </section>
+    
+    <section id="menu">
+        <div class="menu-item">
+            <a href="add"><h1>EKLE</h1></a>
+            <a href="add"><img src="/images/add.png" alt="ekle"></a>
+        </div>
+    </section>
+    <script>
+        function edit(urunString){
+
+            var urun = JSON.parse(urunString);
+
+            console.log(urun._id);
+
+            window.location.href = '/edit/' + urun._id;
+
+        }
+    </script>
+</body>
+<%- include("./partials/footer.ejs") %>
+</html>
