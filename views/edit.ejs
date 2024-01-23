@@ -14,7 +14,7 @@
     </header>
 
     <section id="edit-form">
-        <form action="/update/<%= urun.id %>" method="POST">
+        <form id="updateForm"action="/update/<%= urun.id %>" method="POST">
             <!-- Assuming these are the features of the urun object -->
             <label for="ad">Ad:</label>
             <input type="text" id="ad" name="ad" value="<%= urun.ad %>" required>
@@ -30,7 +30,7 @@
 
             <!-- Add more fields as needed -->
 
-            <button type="submit" onclick="submitFormAndRedirect()">Save Changes</button>
+            <button type="submit" >Save Changes</button>
             <button id="deleteButton" type="button" onclick="deleteItem()">Delete</button>
         </form>
     </section>

@@ -1,5 +1,6 @@
 const express = require('express');
 const mongoose = require('mongoose');
+const morgan = require('morgan');
 const Urun = require('./models/urun');
 const Log = require('./models/log');
 const bodyParser = require('body-parser');
@@ -19,6 +20,9 @@ mongoose.connect(dbURI)
 // register view engine
 app.set('view engine', 'ejs');
 app.use(express.static('public'));
+app.use(morgan('dev'));
+app.use(bodyParser.urlencoded({ extended: true }));
+
 
 app.get('/api/uruns/:id',async (req,res)=>{
   const urun = await Urun.findById(req.params.id);
@@ -49,10 +53,10 @@ app.get('/api/logs/',async (req,res)=>{
 app.post('/update/:id', async (req, res) => { 
   const urunId = req.params.id;
   const updatedUrunData = req.body;
-
+  console.log('deneme',req.body,urunId);
   try {
     const updatedUrun = await Urun.findByIdAndUpdate(urunId, updatedUrunData);
-
+    console.log('basarili')
     res.redirect('/admin');
   } catch (error) {
     console.error(error);
@@ -107,10 +111,6 @@ app.get('/edit/:id',(req,res)=>{
   .catch((err)=>console.log(err))
 })
 
-app.get('/ekle',(req,res)=>{
-  res.render('ekle')
-})
-
 app.get('/add', async (req, res) => {
   const urun = new Urun({
     ad:'0',
@@ -124,13 +124,11 @@ app.get('/add', async (req, res) => {
 });
 
 app.get('/delete/:id',(req,res)=>{
-  console.log('Calisiyor');
   Urun.findByIdAndDelete(req.params.id)
   .then(()=>{
     res.redirect('/admin')
-  });
-    console.log('basarili');
   })
+})
 
 app.use((req, res) => {
   res.status(404).render('404', { title: '404' });
